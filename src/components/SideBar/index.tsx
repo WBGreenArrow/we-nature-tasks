@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   Task as TaskIcon,
   Group as GroupIcon,
@@ -9,9 +8,12 @@ import {
 
 import './styles.scss'
 
-export const SideBar = () => {
+type SideBarProps = {
+  changeRouter: (routerName: string) => void
+}
+
+export const SideBar = ({ changeRouter }: SideBarProps) => {
   const [currentItemActiveId, setCurrentItemActiveId] = useState<string>('item-1')
-  const navigation = useNavigate()
 
   const handleChangeActiveTab = (event: React.MouseEvent<HTMLElement>) => {
     const currentItemElement = document.getElementById(currentItemActiveId)
@@ -26,10 +28,10 @@ export const SideBar = () => {
     }
 
     if (itemToActiveElement) {
-      let router = itemToActiveElement?.getAttribute('router-name')
+      let routerName = itemToActiveElement?.getAttribute('router-name') || ''
 
       itemToActiveElement.classList.add('active')
-      navigation(`/${router}`)
+      changeRouter(routerName)
       setCurrentItemActiveId(() => itemToActiveElement.id)
     }
   }
@@ -40,19 +42,19 @@ export const SideBar = () => {
       <ul className="side-bar-content">
         <li id="item-1" className="side-bar-item active" router-name="tasks" onClick={handleChangeActiveTab}>
           {<TaskIcon />}
-          <span>Tarefas</span>
+          <span>Tasks</span>
         </li>
         <li id="item-2" className="side-bar-item" router-name="teams" onClick={handleChangeActiveTab}>
           <GroupIcon />
-          <span>Equipes</span>
+          <span>Teams</span>
         </li>
         <li id="item-3" className="side-bar-item" router-name="reports" onClick={handleChangeActiveTab}>
           <AssignmentIcon />
-          <span>Relatórios</span>
+          <span>Reports</span>
         </li>
         <li id="item-4" className="side-bar-item" router-name="settings" onClick={handleChangeActiveTab}>
           <SettingsIcon />
-          <span>Ajustes</span>
+          <span>Settings</span>
         </li>
       </ul>
     </aside>

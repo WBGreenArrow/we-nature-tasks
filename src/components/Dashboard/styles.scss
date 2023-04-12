@@ -13,12 +13,12 @@
         height: 100%;
         border-top-left-radius:32px;
         padding: 32px;
+        padding-top: 48px;
 
         background-color: #fff;
 
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
 
     }
 }
