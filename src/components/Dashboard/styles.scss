@@ -2,4 +2,23 @@
     max-width: 1200px;
     height:100vh;
     margin: 0 auto;
+
+    display: flex;
+    background-color: #0e9f42;
+
+
+    .main-container{
+
+        width:calc(100% - 250px);
+        height: 100%;
+        border-top-left-radius:32px;
+        padding: 32px;
+
+        background-color: #fff;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
 }
