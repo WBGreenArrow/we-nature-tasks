@@ -4,7 +4,7 @@
     max-width: 250px;
     padding: 32px;
 
-    background-color: #7C3AED;
+    background-color: #0e9f42;
 
     & > img{
         width:154px;
@@ -21,6 +21,9 @@
             align-items: center;
             padding: 18px 0;
 
+            opacity: 0.5;
+            transition: all 200ms ease-in-out;
+
             cursor: pointer;
 
             & > span {
@@ -28,8 +31,10 @@
                 font-size:16px;
                 font-weight: 700;
                 color: #fff;
-                opacity: 0.5;
-                transition: all 200ms ease-in-out;
+            }
+
+            & > svg {
+                color: #fff;
             }
         }
 
@@ -42,15 +47,11 @@
         }
 
         & > li:hover{
-            & > span {
-                opacity: 1;
-            }
+            opacity: 1;
         }
 
         .active{
-            & > span {
-                opacity: 1;
-            }
+            opacity: 1;
         }
     }
 }
