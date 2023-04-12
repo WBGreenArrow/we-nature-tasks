@@ -1,10 +1,10 @@
 import React from 'react'
-import { Dashboard } from './components/Dashboard'
+import Routes from './routes'
 
 function App() {
   return (
     <div className="App">
-      <Dashboard />
+      <Routes />
     </div>
   )
 }
