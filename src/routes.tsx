@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Dashboard } from './components/Dashboard'
+import { DashBoard } from './components/DashBoard'
 import { Tasks } from './pages/Tasks'
 import { Teams } from './pages/Teams'
 import { Reports } from './pages/Reports'
@@ -8,7 +8,7 @@ import { Settings } from './pages/Settings'
 const RoutesProvider = () => {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />}>
+      <Route path="/" element={<DashBoard />}>
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/reports" element={<Reports />} />
