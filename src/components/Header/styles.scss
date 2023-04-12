@@ -1,0 +1,22 @@
+.header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom:32px;
+
+
+    & > h1 {
+        text-transform: capitalize;
+        color: #403937
+    }
+
+    & > svg {
+       width: 56px;
+       height: 56px;
+       color: #403937;
+       opacity: 0.25;
+
+       cursor: pointer;
+    }
+}
