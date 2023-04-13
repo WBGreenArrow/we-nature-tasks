@@ -1,0 +1,31 @@
+.card-container{
+    width: 100%;
+    max-width: 305px;
+    min-height: 153px;
+    margin-top: 24px;
+    padding: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: #fff;
+    
+
+    .card-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > span{
+            font-size: 14px;
+        }
+
+    }
+
+    .card-body{
+        width: 100%;
+        font-size:14px;
+        padding-top: 10px;
+        color:rgba(117, 105, 102, 1);
+    }
+}

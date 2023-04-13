@@ -1,0 +1,52 @@
+.board-column-container{
+    width: 100%;
+    max-width: 320px;
+    height:600px; 
+    padding-left: 5px;
+   
+
+    .board-column-header{
+        color:rgba(64, 57, 55, 1);
+        text-transform: capitalize;        
+    }
+
+    .board-column-content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 24px;
+        max-height:calc(100% - 53px); 
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+        &:hover{
+            &::-webkit-scrollbar {
+                width: 5px;
+              }
+              
+            &::-webkit-scrollbar-track {
+            background: rgb(196, 196, 196); 
+            border-radius: 20px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+            background-color: #0e9f42;
+            border-radius: 20px; 
+            }
+          }
+
+
+        & > div:first-child{
+            margin-top: 0px;
+        }
+
+       
+
+          
+        
+    }
+}
