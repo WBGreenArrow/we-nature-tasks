@@ -10,13 +10,14 @@
         border-radius: 5px;
         background-color: #0e9f42;
         color:#fff;
+        text-transform: capitalize;
         transition: all 200ms ease-in-out;
 
         cursor: pointer;
 
-        & > label{
-            padding-left: 8px;
-            text-transform: capitalize;
+        & > svg{
+            margin-right: 8px;
+            
         }
 
         &:hover{
@@ -51,6 +52,15 @@
             background-color: #0e9f42;
             color: #fff;
         }
+    }
+
+    .hidden{
+        display: none;
+    }
+
+    .item-active{
+        background-color: #0e9f42;
+        color: #fff;
     }
 }
 
