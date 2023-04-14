@@ -1,22 +1,56 @@
 .board-column-container{
     width: 100%;
     max-width: 320px;
-    height:600px; 
+    // height:600px; 
     padding-left: 5px;
    
 
     .board-column-header{
         color:rgba(64, 57, 55, 1);
-        text-transform: capitalize;        
+        text-transform: capitalize; 
+        margin-bottom: 48px;
+
+
+        & > span > label{
+          position: absolute;
+          padding-bottom: 16px;
+          margin-bottom: 50px;
+
+          font-size: 24px;
+          font-weight: bold;
+
+          & > span {
+            width: 24px;
+            height: 24px;
+  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 500;
+            color: #fff;
+            font-size: 14px;
+  
+            border-radius: 50%;
+            background-color: #0e9f42;
+  
+            position: relative;
+            left: 97%;
+            top: -33px;
+          }
+        }
+        
+        
+
+       
     }
 
     .board-column-content{
-        display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        margin-top: 24px;
-        max-height:calc(100% - 53px); 
+
+        max-height:600px; 
         overflow: auto;
 
         &::-webkit-scrollbar {

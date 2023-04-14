@@ -11,7 +11,12 @@ export const BoardColumn = ({ textHeader }: BoardColumnProps) => {
   return (
     <Grid className="board-column-container" item xs>
       <div className="board-column-header">
-        <h2>{textHeader}</h2>
+        <span>
+          <label>
+            {textHeader}
+            <span>15</span>
+          </label>
+        </span>
       </div>
       <div className="board-column-content">
         <Card />
