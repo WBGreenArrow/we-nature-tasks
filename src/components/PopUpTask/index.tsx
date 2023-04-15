@@ -1,35 +1,59 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Select } from '../Select'
 
 import { Modal, Box } from '@mui/material'
 import { Delete as DeleteIcon, Clear as CloseIcon } from '@mui/icons-material/'
 
 import './styles.scss'
+import { CardProps } from '../Board/components/Card'
+import { useStore } from '../../store'
 
 type PopUpTaskProps = {
-  isOpen: boolean
   handleOpen: (statePopUp: boolean) => void
+  data: CardProps
 }
 
-export const PopUpTask = ({ isOpen, handleOpen }: PopUpTaskProps) => {
-  useEffect(() => {
-    isOpen && handleOpen(true)
+export const PopUpTask = ({ handleOpen, data }: PopUpTaskProps) => {
+  const [titleValue, setTitleValue] = useState<string>(data.title)
+  const [descValue, setDescValue] = useState<string>(data.desc)
+  const [statusValue, setStatusValueValue] = useState<string>(data.status)
 
-    return () => handleOpen(false)
-  }, [isOpen])
+  const { actions } = useStore()
 
   const handleClose = (event: React.MouseEvent, reason: string = '') => {
     if (reason && reason === 'backdropClick' && 'escapeKeyDown') return
+
+    handleOpen(false)
+    handleCleanValues()
+  }
+
+  const handleDeleteTask = (id: number) => {
+    actions.removeTaskById(id)
     handleOpen(false)
   }
 
-  const handleDeleteTask = () => {
-    console.log('deleting')
+  const handleSaveTask = () => {
+    console.log('saving')
+  }
+
+  const handleChangeTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setTitleValue(() => value)
+  }
+
+  const handleChangeDescValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target
+    setDescValue(() => value)
+  }
+
+  const handleCleanValues = () => {
+    setTitleValue(() => '')
+    setDescValue(() => '')
   }
 
   return (
     <>
-      <Modal open={isOpen} onClose={handleClose} sx={{ margin: '32px' }}>
+      <Modal open={true} onClose={handleClose} sx={{ margin: '32px' }}>
         <Box className="pop-up-container">
           <div className="pop-up-header-container">
             <h2>Create Task</h2>
@@ -42,21 +66,21 @@ export const PopUpTask = ({ isOpen, handleOpen }: PopUpTaskProps) => {
             <div className="pop-up-form-content-fields">
               <span className="pop-up-form-text">
                 <label>Title:</label>
-                <input type="text" placeholder="" />
+                <input type="text" placeholder="" value={titleValue || ''} onChange={handleChangeTitleValue} />
               </span>
               <span className="pop-up-form-text">
                 <label>Description:</label>
-                <textarea />
+                <textarea value={descValue || ''} onChange={handleChangeDescValue} />
               </span>
             </div>
             <div className="pop-up-form-container">
               <div className="pop-up-form-btns-container">
                 <span className="select-container">
                   <label>Status:</label>
-                  <Select type="select" />
+                  <Select type="select" value={statusValue} onChange={(value) => console.log(value)} />
                 </span>
 
-                <span className="delete-btn-container" onClick={handleDeleteTask}>
+                <span className="delete-btn-container" onClick={() => handleDeleteTask(data.id)}>
                   <label>Delete</label>
                   <DeleteIcon />
                 </span>
@@ -70,7 +94,7 @@ export const PopUpTask = ({ isOpen, handleOpen }: PopUpTaskProps) => {
             </div>
           </div>
           <div className="pop-up-form-footer-container">
-            <span className="save-btn-container" onClick={handleDeleteTask}>
+            <span className="save-btn-container" onClick={handleSaveTask}>
               Save
             </span>
           </div>
