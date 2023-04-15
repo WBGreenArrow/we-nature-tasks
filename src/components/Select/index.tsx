@@ -4,6 +4,8 @@ import './styles.scss'
 
 type SelectProp = {
   type: 'filter' | 'select'
+  value?: string
+  onChange: (valeu: string) => void
 }
 
 enum Status {
@@ -12,8 +14,8 @@ enum Status {
   DONE = 'done',
 }
 
-export const Select = ({ type }: SelectProp) => {
-  const [selectValue, setSelectValue] = useState<Status | ''>('')
+export const Select = ({ type, value = '', onChange }: SelectProp) => {
+  const [selectValue, setSelectValue] = useState<Status | ''>(value as Status)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const selecteContainerRef = useRef<HTMLUListElement>(null)
@@ -42,6 +44,7 @@ export const Select = ({ type }: SelectProp) => {
     const { value } = event.currentTarget.dataset
 
     handleOpenSelect()
+    onChange(value as string)
 
     if (value === selectValue) {
       if (type === 'select') return
