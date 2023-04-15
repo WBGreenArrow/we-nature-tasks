@@ -1,10 +1,10 @@
-.board-container{
-    width:100%;
+.board-container {
+  width: 100%;
 
-    .board-content{
-        & > div:nth-child(2){
-            margin-right:48px;
-            margin-left:48px;
-        }
+  .board-content {
+    & > div:nth-child(2) {
+      margin-right: 48px;
+      margin-left: 48px;
     }
+  }
 }

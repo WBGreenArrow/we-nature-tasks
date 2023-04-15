@@ -1,24 +1,21 @@
-.container{
-    max-width: 1350px;
-    height:100vh;
-    margin: 0 auto;
+.container {
+  max-width: 1350px;
+  height: 100vh;
+  margin: 0 auto;
+
+  display: flex;
+  background-color: #0e9f42;
+
+  .main-container {
+    width: calc(100% - 250px);
+    height: 100%;
+    border-top-left-radius: 32px;
+    padding: 32px;
+    padding-top: 48px;
+
+    background-color: #fbfaff;
 
     display: flex;
-    background-color: #0e9f42;
-
-
-    .main-container{
-
-        width:calc(100% - 250px);
-        height: 100%;
-        border-top-left-radius:32px;
-        padding: 32px;
-        padding-top: 48px;
-
-        background-color: #FBFAFF;
-
-        display: flex;
-        flex-direction: column;
-
-    }
+    flex-direction: column;
+  }
 }

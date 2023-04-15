@@ -1,68 +1,65 @@
-.filter-select-container{ 
-     position: relative;
-    & > span{
-        width:135px;
-        height:48px;
+.filter-select-container {
+  position: relative;
+  & > span {
+    width: 135px;
+    height: 48px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        background-color: #0e9f42;
-        color:#fff;
-        text-transform: capitalize;
-        transition: all 200ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #0e9f42;
+    color: #fff;
+    text-transform: capitalize;
+    transition: all 200ms ease-in-out;
 
-        cursor: pointer;
+    cursor: pointer;
 
-        & > svg{
-            margin-right: 8px;
-            
-        }
-
-        &:hover{
-            opacity: 0.8;
-        }
+    & > svg {
+      margin-right: 8px;
     }
 
-    .filter-select-items-container{
-        z-index: 1;
-        width: 135px;
-        height: 100px;
-        background-color: #fff;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        position: absolute;
-        border-radius: 5px;
-        
-        top: 110%;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+  .filter-select-items-container {
+    z-index: 1;
+    width: 135px;
+    height: 100px;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: absolute;
+    border-radius: 5px;
 
-        & > li {
-            width: 100%;
-            padding:5px 0px;
-            text-transform: capitalize;
-            cursor: pointer;
-            text-align: center;
-        }
+    top: 110%;
 
-        & > li:hover {
-            background-color: #0e9f42;
-            color: #fff;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & > li {
+      width: 100%;
+      padding: 5px 0px;
+      text-transform: capitalize;
+      cursor: pointer;
+      text-align: center;
     }
 
-    .hidden{
-        display: none;
+    & > li:hover {
+      background-color: #0e9f42;
+      color: #fff;
     }
+  }
 
-    .item-active{
-        background-color: #0e9f42;
-        color: #fff;
-    }
+  .hidden {
+    display: none;
+  }
+
+  .item-active {
+    background-color: #0e9f42;
+    color: #fff;
+  }
 }
-
-
