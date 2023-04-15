@@ -2,14 +2,26 @@ import React, { useState, useEffect, useRef } from 'react'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import './styles.scss'
 
-export const FilterSelect = () => {
-  const [filterValue, setFilterValue] = useState<string>('')
+type SelectProp = {
+  type: 'filter' | 'select'
+}
+
+enum Status {
+  PENDING = 'pending',
+  IN_PROGRESS = 'in progress',
+  DONE = 'done',
+}
+
+export const Select = ({ type }: SelectProp) => {
+  const [selectValue, setSelectValue] = useState<Status | ''>('')
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
   const selecteContainerRef = useRef<HTMLUListElement>(null)
   const prevItemSelectedRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     document.addEventListener('click', closeSelectClickOutside)
+    if (type === 'select') return setSelectValue(Status.PENDING)
     return () => document.removeEventListener('click', closeSelectClickOutside)
   }, [])
 
@@ -27,15 +39,17 @@ export const FilterSelect = () => {
 
   const handleSelectItem = (event: React.MouseEvent<HTMLElement>) => {
     let liElement = event.target as HTMLElement
-    let value = liElement.innerHTML
+    const { value } = event.currentTarget.dataset
 
     handleOpenSelect()
-    if (value === filterValue) {
-      setFilterValue(() => '')
+
+    if (value === selectValue) {
+      if (type === 'select') return
+      setSelectValue(() => '')
       liElement.classList.remove('item-active')
       return
     }
-    setFilterValue(() => value)
+    setSelectValue(() => value as Status)
     liElement.classList.add('item-active')
 
     if (prevItemSelectedRef.current) {
@@ -59,16 +73,28 @@ export const FilterSelect = () => {
   return (
     <div className="filter-select-container">
       <span id="filter-button" onClick={handleOpenSelect}>
-        <FilterListIcon />
-        filters
+        {type === 'select' ? (
+          selectValue
+        ) : (
+          <>
+            <FilterListIcon />
+            filters
+          </>
+        )}
       </span>
       <ul
         ref={selecteContainerRef as React.LegacyRef<HTMLUListElement>}
         className="filter-select-items-container hidden"
       >
-        <li onClick={handleSelectItem}>pending</li>
-        <li onClick={handleSelectItem}>in progress</li>
-        <li onClick={handleSelectItem}>done</li>
+        <li data-value={Status.PENDING} onClick={handleSelectItem}>
+          {Status.PENDING}
+        </li>
+        <li data-value={Status.IN_PROGRESS} onClick={handleSelectItem}>
+          {Status.IN_PROGRESS}
+        </li>
+        <li data-value={Status.DONE} onClick={handleSelectItem}>
+          {Status.DONE}
+        </li>
       </ul>
     </div>
   )
