@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import './styles.scss'
 import { PopUpTask } from '../../../PopUpTask'
+import { ITask } from '../../../../store'
 
-export type CardProps = {
-  id: number
-  title: string
-  desc: string
-  status: string
-  updatedAtt: string
+type CardProp = {
+  task: ITask
 }
 
-export const Card = ({ id, title, desc, status, updatedAtt }: CardProps) => {
+export const Card = ({ task }: CardProp) => {
   const [isOpenPopUpTask, setIsOpenPopUpTask] = useState<boolean>(false)
 
   const handleOpenPopUpTask = (statePopUp: boolean) => {
@@ -21,14 +18,14 @@ export const Card = ({ id, title, desc, status, updatedAtt }: CardProps) => {
     <>
       <div className="card-container" onClick={() => handleOpenPopUpTask(true)}>
         <div className="card-header">
-          <h5>{title}</h5>
-          <span>{updatedAtt}</span>
+          <h5>{task.title}</h5>
+          <span>{task.created_at}</span>
         </div>
         <div className="card-body">
-          <p>{desc}</p>
+          <p>{task.desc}</p>
         </div>
       </div>
-      {isOpenPopUpTask && <PopUpTask handleOpen={handleOpenPopUpTask} data={{ id, title, desc, status, updatedAtt }} />}
+      {isOpenPopUpTask && <PopUpTask handleOpen={handleOpenPopUpTask} task={task} />}
     </>
   )
 }

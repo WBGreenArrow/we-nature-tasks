@@ -2,15 +2,15 @@ import React from 'react'
 import { Grid } from '@mui/material'
 import { Card } from '../Card'
 import './styles.scss'
-import { ITask } from '../../../../pages/Tasks/mock'
+import { ITask } from '../../../../store'
 
 type BoardColumnProps = {
   textHeader: string
-  data: Array<ITask>
+  taskList: Array<ITask>
   taskCount: number
 }
 
-export const BoardColumn = ({ textHeader, data, taskCount }: BoardColumnProps) => {
+export const BoardColumn = ({ textHeader, taskCount, taskList }: BoardColumnProps) => {
   return (
     <Grid className="board-column-container" item xs>
       <div className="board-column-header">
@@ -22,17 +22,8 @@ export const BoardColumn = ({ textHeader, data, taskCount }: BoardColumnProps) =
         </span>
       </div>
       <div className="board-column-content">
-        {data.map((task) => {
-          return (
-            <Card
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              desc={task.desc}
-              status={task.status}
-              updatedAtt={task.updated_at}
-            />
-          )
+        {taskList.map((taskData) => {
+          return <Card key={taskData.id} task={taskData} />
         })}
       </div>
     </Grid>
