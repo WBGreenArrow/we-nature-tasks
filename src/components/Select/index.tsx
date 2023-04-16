@@ -1,17 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import './styles.scss'
+import { Status } from '../../constants'
 
 type SelectProp = {
   type: 'filter' | 'select'
   value?: string
   onChange: (valeu: string) => void
-}
-
-enum Status {
-  PENDING = 'pending',
-  IN_PROGRESS = 'in progress',
-  DONE = 'done',
 }
 
 export const Select = ({ type, value = '', onChange }: SelectProp) => {
