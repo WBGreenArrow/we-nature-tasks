@@ -1,11 +1,4 @@
-export interface ITask {
-  id: number
-  title: string
-  desc: string
-  status: string
-  created_at: string
-  updated_at: string
-}
+import { ITask } from '../../store'
 
 const data: Array<ITask> = [
   {
@@ -13,6 +6,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'pedding',
+    status_list: 'peddingTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -21,6 +15,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'in progress',
+    status_list: 'inProgressTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -29,6 +24,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'in progress',
+    status_list: 'inProgressTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -37,6 +33,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'in progress',
+    status_list: 'inProgressTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -45,6 +42,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'done',
+    status_list: 'doneTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -53,6 +51,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'done',
+    status_list: 'doneTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -61,6 +60,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'pedding',
+    status_list: 'peddingTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
@@ -69,6 +69,7 @@ const data: Array<ITask> = [
     title: 'Conferir o novo desafio 🚀 ',
     desc: 'Conferir o novo projeto do #boraCodar para fazê-lo da melhor maneira possível',
     status: 'pedding',
+    status_list: 'peddingTasks',
     created_at: '2023-15-04',
     updated_at: '2023-15-04',
   },
