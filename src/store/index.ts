@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import { Status } from '../constants'
 import { orderingId } from '../utils'
 
+import { data } from '../pages/Tasks/mock'
+
 export interface ITask {
   id: number
   title: string
@@ -12,7 +14,7 @@ export interface ITask {
   status_list: 'inProgressTasks' | 'pendingTasks' | 'doneTasks'
 }
 
-interface IState {
+export interface IState {
   state: {
     [key: string]: ITask[]
     pendingTasks: Array<ITask>
@@ -23,50 +25,31 @@ interface IState {
 
 interface IAction {
   actions: {
-    setPendingTasks: (tasks: IState['state']['pendingTasks']) => void
-    setInProgressTasks: (tasks: IState['state']['inProgressTasks']) => void
-    setDoneTasks: (tasks: IState['state']['doneTasks']) => void
     taskRemove: (task: ITask) => void
     taskUpdate: (task: ITask) => void
   }
 }
 
+const handleFiterByStatus = (status: string) => {
+  if (data.length) {
+    const tasksFiltered = data.filter((task) => task.status === status)
+    return tasksFiltered
+  }
+  return []
+}
+
+const pending = handleFiterByStatus('pending')
+const inProgress = handleFiterByStatus('in progress')
+const done = handleFiterByStatus('done')
+
 export const useStore = create<IState & IAction>()((set) => ({
   state: {
-    pendingTasks: [],
-    inProgressTasks: [],
-    doneTasks: [],
+    pendingTasks: pending || [],
+    inProgressTasks: inProgress || [],
+    doneTasks: done || [],
   },
 
   actions: {
-    setPendingTasks: (tasks: Array<ITask>) => {
-      set((state) => ({
-        ...state,
-        state: {
-          ...state.state,
-          pendingTasks: orderingId(tasks),
-        },
-      }))
-    },
-    setInProgressTasks: (tasks: Array<ITask>) => {
-      set((state) => ({
-        ...state,
-        state: {
-          ...state.state,
-          inProgressTasks: orderingId(tasks),
-        },
-      }))
-    },
-    setDoneTasks: (tasks: Array<ITask>) => {
-      set((state) => ({
-        ...state,
-        state: {
-          ...state.state,
-          doneTasks: orderingId(tasks),
-        },
-      }))
-    },
-
     taskRemove: (taskToRemove: ITask) => {
       set((state) => {
         let updatedTasks = state.state[taskToRemove.status_list].filter((task) => task.id !== taskToRemove.id)
