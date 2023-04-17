@@ -26,7 +26,7 @@ export interface IState {
 interface IAction {
   actions: {
     taskRemove: (task: ITask) => void
-    taskUpdate: (task: ITask) => void
+    taskUpdate: (editedTask: ITask) => void
   }
 }
 
@@ -44,13 +44,13 @@ const done = handleFiterByStatus('done')
 
 export const useStore = create<IState & IAction>()((set) => ({
   state: {
-    pendingTasks: pending || [],
-    inProgressTasks: inProgress || [],
-    doneTasks: done || [],
+    pendingTasks: orderingId(pending),
+    inProgressTasks: orderingId(inProgress),
+    doneTasks: orderingId(done),
   },
 
   actions: {
-    taskRemove: (taskToRemove: ITask) => {
+    taskRemove: (taskToRemove) => {
       set((state) => {
         let updatedTasks = state.state[taskToRemove.status_list].filter((task) => task.id !== taskToRemove.id)
 
@@ -64,52 +64,53 @@ export const useStore = create<IState & IAction>()((set) => ({
       })
     },
 
-    taskUpdate: (taskEdited: ITask) => {
+    taskUpdate: (editedTask) => {
       set((state) => {
-        let taskFinded = state.state[taskEdited.status_list].find((task) => taskEdited.id === task.id)
+        const { id, status_list, status } = editedTask
 
-        let taskListUpdated: Array<ITask>
-        let statusTaskListToSave: ITask['status_list'] = 'doneTasks'
-        let currentTaskList: Array<ITask> | undefined
-        let prevStatusTaskList = taskEdited.status_list
+        const originalTaskIndex = state.state[status_list].findIndex((task) => task.id === id)
+        const originalTask = state.state[status_list][originalTaskIndex]
+        const prevStatusList = status_list
 
-        if (taskEdited.status !== taskFinded?.status) {
-          currentTaskList = state.state[taskEdited.status_list].filter((task) => task.id !== taskEdited.id)
-          currentTaskList = orderingId(currentTaskList)
+        let currentTaskList: ITask[] = []
+        let newTaskList: ITask[] = []
+
+        if (status !== originalTask.status) {
+          currentTaskList = orderingId(state.state[status_list].filter((task) => task.id !== id))
         }
 
-        if (taskEdited.status === Status.PENDING) {
-          statusTaskListToSave = 'pendingTasks'
+        let statusListToSave = status_list
+
+        if (status === Status.PENDING) {
+          statusListToSave = 'pendingTasks'
+        } else if (status === Status.IN_PROGRESS) {
+          statusListToSave = 'inProgressTasks'
+        } else if (status === Status.DONE) {
+          statusListToSave = 'doneTasks'
         }
 
-        if (taskEdited.status === Status.IN_PROGRESS) {
-          statusTaskListToSave = 'inProgressTasks'
-        }
+        editedTask.status_list = statusListToSave
+        newTaskList = state.state[statusListToSave]
 
-        taskEdited.status_list = statusTaskListToSave
-        taskListUpdated = state.state[statusTaskListToSave]
-
-        if (taskEdited.status === taskFinded?.status) {
-          currentTaskList = state.state[taskEdited.status_list]
-          let currentTaskIndex = currentTaskList.findIndex((task) => task.id === taskEdited.id)
-
-          currentTaskList[currentTaskIndex] = taskEdited
+        if (status === originalTask.status) {
+          currentTaskList = state.state[status_list]
+          currentTaskList[originalTaskIndex] = editedTask
           currentTaskList = orderingId(currentTaskList)
         } else {
-          taskListUpdated.push(taskEdited)
-          taskListUpdated = orderingId(taskListUpdated)
+          newTaskList.push(editedTask)
+          newTaskList = orderingId(newTaskList)
         }
 
         const newState = {
           ...state,
           state: {
             ...state.state,
-            [statusTaskListToSave]: taskListUpdated,
+            [statusListToSave]: newTaskList,
           },
         }
 
         if (currentTaskList) {
-          newState.state[prevStatusTaskList] = currentTaskList
+          newState.state[prevStatusList] = currentTaskList
         }
 
         return newState
