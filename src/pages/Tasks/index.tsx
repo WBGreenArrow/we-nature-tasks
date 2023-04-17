@@ -3,10 +3,11 @@ import { Select } from '../../components/Select'
 import { Board } from '../../components/Board'
 import SearchIcon from '@mui/icons-material/Search'
 
-import { data } from './mock'
+import { useStore } from '../../store'
 import './styles.scss'
 
 export const Tasks = () => {
+  const { state } = useStore()
   return (
     <div className="tasks-container">
       <div className="tasks-search-container">
@@ -16,7 +17,7 @@ export const Tasks = () => {
           <input type="text" placeholder="Search by cards, subjects or guardians..." />
         </span>
       </div>
-      <Board data={data} />
+      <Board pendingTasks={state.pendingTasks} inProgressTasks={state.inProgressTasks} doneTasks={state.doneTasks} />
     </div>
   )
 }

@@ -1,45 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BoardColumn } from './components/BoardColumn'
 import { Grid } from '@mui/material'
 import './styles.scss'
 
-import { ITask, useStore } from '../../store'
+import { ITask } from '../../store'
 
 type BoardProps = {
-  data: Array<ITask>
+  pendingTasks: Array<ITask>
+  inProgressTasks: Array<ITask>
+  doneTasks: Array<ITask>
 }
 
-export const Board = ({ data }: BoardProps) => {
-  const { state, actions } = useStore()
-
-  useEffect(() => {
-    const pending = handleFiterByStatus('pending')
-    const inProgress = handleFiterByStatus('in progress')
-    const done = handleFiterByStatus('done')
-
-    actions.setPendingTasks(pending)
-    actions.setInProgressTasks(inProgress)
-    actions.setDoneTasks(done)
-  }, [])
-
-  const handleFiterByStatus = (status: string) => {
-    if (data.length) {
-      const tasksFiltered = data.filter((task) => task.status === status)
-      return tasksFiltered
-    }
-    return []
-  }
-
+export const Board = ({ pendingTasks, inProgressTasks, doneTasks }: BoardProps) => {
   return (
     <div className="board-container">
       <Grid className="board-content" container spacing={2}>
-        <BoardColumn textHeader="pending" taskList={state.pendingTasks} taskCount={state.pendingTasks.length} />
-        <BoardColumn
-          textHeader="in progress"
-          taskList={state.inProgressTasks}
-          taskCount={state.inProgressTasks.length}
-        />
-        <BoardColumn textHeader="done" taskList={state.doneTasks} taskCount={state.doneTasks.length} />
+        <BoardColumn textHeader="pending" taskList={pendingTasks} taskCount={pendingTasks.length} />
+        <BoardColumn textHeader="in progress" taskList={inProgressTasks} taskCount={inProgressTasks.length} />
+        <BoardColumn textHeader="done" taskList={doneTasks} taskCount={doneTasks.length} />
       </Grid>
     </div>
   )
