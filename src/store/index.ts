@@ -82,7 +82,6 @@ export const useStore = create<IState & IAction>()((set) => ({
     },
 
     taskUpdate: (taskEdited: ITask) => {
-      console.log(taskEdited)
       set((state) => {
         let taskFinded = state.state[taskEdited.status_list].find((task) => taskEdited.id === task.id)
 
