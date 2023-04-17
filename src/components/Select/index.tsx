@@ -18,7 +18,7 @@ export const Select = ({ type, value = '', onChange }: SelectProp) => {
 
   useEffect(() => {
     document.addEventListener('click', closeSelectClickOutside)
-    if (type === 'select') return setSelectValue(Status.PENDING)
+    if (type === 'select' && value === '') return setSelectValue(Status.PENDING)
     return () => document.removeEventListener('click', closeSelectClickOutside)
   }, [])
 

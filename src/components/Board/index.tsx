@@ -13,18 +13,14 @@ export const Board = ({ data }: BoardProps) => {
   const { state, actions } = useStore()
 
   useEffect(() => {
-    const pedding = handleFiterByStatus('pedding')
+    const pending = handleFiterByStatus('pending')
     const inProgress = handleFiterByStatus('in progress')
     const done = handleFiterByStatus('done')
 
-    actions.setPeddingTasks(pedding)
+    actions.setPendingTasks(pending)
     actions.setInProgressTasks(inProgress)
     actions.setDoneTasks(done)
   }, [])
-
-  useEffect(() => {
-    console.log(state)
-  }, [state])
 
   const handleFiterByStatus = (status: string) => {
     if (data.length) {
@@ -37,7 +33,7 @@ export const Board = ({ data }: BoardProps) => {
   return (
     <div className="board-container">
       <Grid className="board-content" container spacing={2}>
-        <BoardColumn textHeader="pedding" taskList={state.peddingTasks} taskCount={state.peddingTasks.length} />
+        <BoardColumn textHeader="pending" taskList={state.pendingTasks} taskCount={state.pendingTasks.length} />
         <BoardColumn
           textHeader="in progress"
           taskList={state.inProgressTasks}

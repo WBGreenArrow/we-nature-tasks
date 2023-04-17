@@ -9,13 +9,13 @@ export interface ITask {
   status: string
   created_at: string
   updated_at: string
-  status_list: 'inProgressTasks' | 'peddingTasks' | 'doneTasks'
+  status_list: 'inProgressTasks' | 'pendingTasks' | 'doneTasks'
 }
 
 interface IState {
   state: {
     [key: string]: ITask[]
-    peddingTasks: Array<ITask>
+    pendingTasks: Array<ITask>
     inProgressTasks: Array<ITask>
     doneTasks: Array<ITask>
   }
@@ -23,7 +23,7 @@ interface IState {
 
 interface IAction {
   actions: {
-    setPeddingTasks: (tasks: IState['state']['peddingTasks']) => void
+    setPendingTasks: (tasks: IState['state']['pendingTasks']) => void
     setInProgressTasks: (tasks: IState['state']['inProgressTasks']) => void
     setDoneTasks: (tasks: IState['state']['doneTasks']) => void
     taskRemove: (task: ITask) => void
@@ -33,18 +33,18 @@ interface IAction {
 
 export const useStore = create<IState & IAction>()((set) => ({
   state: {
-    peddingTasks: [],
+    pendingTasks: [],
     inProgressTasks: [],
     doneTasks: [],
   },
 
   actions: {
-    setPeddingTasks: (tasks: Array<ITask>) => {
+    setPendingTasks: (tasks: Array<ITask>) => {
       set((state) => ({
         ...state,
         state: {
           ...state.state,
-          peddingTasks: tasks,
+          pendingTasks: orderingId(tasks),
         },
       }))
     },
@@ -53,7 +53,7 @@ export const useStore = create<IState & IAction>()((set) => ({
         ...state,
         state: {
           ...state.state,
-          inProgressTasks: tasks,
+          inProgressTasks: orderingId(tasks),
         },
       }))
     },
@@ -62,7 +62,7 @@ export const useStore = create<IState & IAction>()((set) => ({
         ...state,
         state: {
           ...state.state,
-          doneTasks: tasks,
+          doneTasks: orderingId(tasks),
         },
       }))
     },
@@ -82,6 +82,7 @@ export const useStore = create<IState & IAction>()((set) => ({
     },
 
     taskUpdate: (taskEdited: ITask) => {
+      console.log(taskEdited)
       set((state) => {
         let taskFinded = state.state[taskEdited.status_list].find((task) => taskEdited.id === task.id)
 
@@ -96,7 +97,7 @@ export const useStore = create<IState & IAction>()((set) => ({
         }
 
         if (taskEdited.status === Status.PENDING) {
-          statusTaskListToSave = 'peddingTasks'
+          statusTaskListToSave = 'pendingTasks'
         }
 
         if (taskEdited.status === Status.IN_PROGRESS) {
