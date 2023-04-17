@@ -44,6 +44,7 @@ export const Select = ({ type, value = '', onChange }: SelectProp) => {
     if (value === selectValue) {
       if (type === 'select') return
       setSelectValue(() => '')
+      onChange('')
       liElement.classList.remove('item-active')
       return
     }
