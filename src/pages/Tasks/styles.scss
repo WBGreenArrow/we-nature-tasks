@@ -37,5 +37,34 @@
         color: rgba(124, 124, 138, 1);
       }
     }
+
+    & > span:last-child {
+      width: 250px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      background-color: #0e9f42;
+      color: #fff;
+      text-transform: capitalize;
+      transition: all 200ms ease-in-out;
+
+      cursor: pointer;
+
+      & > label {
+        cursor: pointer;
+      }
+
+      & > svg {
+        margin-left: 8px;
+        color: #fff;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 }
