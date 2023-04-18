@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './styles.scss'
 import { PopUpTask } from '../../../PopUpTask'
 import { ITask } from '../../../../store'
+import { formatDate } from '../../../../utils'
 
 type CardProp = {
   task: ITask
@@ -19,7 +20,7 @@ export const Card = ({ task }: CardProp) => {
       <div className="card-container" onClick={() => handleOpenPopUpTask(true)}>
         <div className="card-header">
           <h5>{task.title}</h5>
-          <span>{task.created_at}</span>
+          <span>{formatDate(task.updated_at || '')}</span>
         </div>
         <div className="card-body">
           <p>{task.desc}</p>
