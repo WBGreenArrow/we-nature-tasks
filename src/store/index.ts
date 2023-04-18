@@ -1,16 +1,16 @@
 import { create } from 'zustand'
 import { Status } from '../constants'
-import { orderingId } from '../utils'
+import { getCurrentDate, orderingId } from '../utils'
 
-import { data } from '../pages/Tasks/mock'
+import { getTaskListsFromLocalStorage } from '../utils/localStorageUtils'
 
 export interface ITask {
-  id: number
+  id?: number
   title: string
   desc: string
   status: string
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
   status_list: 'inProgressTasks' | 'pendingTasks' | 'doneTasks'
 }
 
@@ -25,31 +25,45 @@ export interface IState {
 
 interface IAction {
   actions: {
-    taskRemove: (task: ITask) => void
+    createTask: (task: ITask) => void
     taskUpdate: (editedTask: ITask) => void
+    taskRemove: (task: ITask) => void
   }
 }
 
-const handleFiterByStatus = (status: string) => {
-  if (data.length) {
-    const tasksFiltered = data.filter((task) => task.status === status)
-    return tasksFiltered
-  }
-  return []
-}
-
-const pending = handleFiterByStatus('pending')
-const inProgress = handleFiterByStatus('in progress')
-const done = handleFiterByStatus('done')
+const { pendingTasks, inProgressTasks, doneTasks } = getTaskListsFromLocalStorage()
 
 export const useStore = create<IState & IAction>()((set) => ({
   state: {
-    pendingTasks: orderingId(pending),
-    inProgressTasks: orderingId(inProgress),
-    doneTasks: orderingId(done),
+    pendingTasks,
+    inProgressTasks,
+    doneTasks,
   },
 
   actions: {
+    createTask: (dataTask) => {
+      set((state) => {
+        const { status_list } = dataTask
+        const newId = state.state[status_list].length + 1
+        const newTaskList = [
+          ...state.state[status_list],
+          {
+            id: newId,
+            created_at: getCurrentDate(),
+            updated_at: getCurrentDate(),
+            ...dataTask,
+          },
+        ]
+
+        return {
+          ...state,
+          state: {
+            ...state.state,
+            [status_list]: orderingId(newTaskList),
+          },
+        }
+      })
+    },
     taskRemove: (taskToRemove) => {
       set((state) => {
         let updatedTasks = state.state[taskToRemove.status_list].filter((task) => task.id !== taskToRemove.id)
@@ -90,6 +104,7 @@ export const useStore = create<IState & IAction>()((set) => ({
         }
 
         editedTask.status_list = statusListToSave
+        editedTask.updated_at = getCurrentDate()
         newTaskList = state.state[statusListToSave]
 
         if (status === originalTask.status) {
