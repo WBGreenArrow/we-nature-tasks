@@ -5,18 +5,24 @@ import { Modal, Box } from '@mui/material'
 import { Delete as DeleteIcon, Clear as CloseIcon } from '@mui/icons-material/'
 
 import './styles.scss'
-import { CardProps } from '../Board/components/Card'
-import { useStore } from '../../store'
+import { ITask, useStore } from '../../store'
+import { formatDate } from '../../utils'
 
 type PopUpTaskProps = {
   handleOpen: (statePopUp: boolean) => void
-  data: CardProps
+  task: ITask
 }
 
-export const PopUpTask = ({ handleOpen, data }: PopUpTaskProps) => {
-  const [titleValue, setTitleValue] = useState<string>(data.title)
-  const [descValue, setDescValue] = useState<string>(data.desc)
-  const [statusValue, setStatusValueValue] = useState<string>(data.status)
+enum StatusList {
+  'pending' = 'pendingTasks',
+  'in progress' = 'inProgressTasks',
+  'done' = 'doneTasks',
+}
+
+export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
+  const [titleValue, setTitleValue] = useState<string>(task.title)
+  const [descValue, setDescValue] = useState<string>(task.desc)
+  const [statusValue, setStatusValue] = useState<string>(task.status)
 
   const { actions } = useStore()
 
@@ -27,18 +33,36 @@ export const PopUpTask = ({ handleOpen, data }: PopUpTaskProps) => {
     handleCleanValues()
   }
 
-  const handleDeleteTask = (id: number) => {
-    actions.removeTaskById(id)
+  const handleDeleteTask = (task: ITask) => {
+    actions.taskRemove(task)
     handleOpen(false)
   }
 
   const handleSaveTask = () => {
-    console.log('saving')
+    const currenTask = {
+      ...task,
+      title: titleValue,
+      desc: descValue,
+      status: statusValue,
+    }
+    if (currenTask.id) {
+      actions.taskUpdate(currenTask)
+    } else {
+      actions.createTask(currenTask)
+    }
+    handleOpen(false)
   }
 
   const handleChangeTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     setTitleValue(() => value)
+  }
+
+  const handleChangeSelectValue = (value: ITask['status']) => {
+    if (!task.id) {
+      task['status_list'] = StatusList[value as keyof typeof StatusList]
+    }
+    setStatusValue(() => value)
   }
 
   const handleChangeDescValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -77,20 +101,23 @@ export const PopUpTask = ({ handleOpen, data }: PopUpTaskProps) => {
               <div className="pop-up-form-btns-container">
                 <span className="select-container">
                   <label>Status:</label>
-                  <Select type="select" value={statusValue} onChange={(value) => console.log(value)} />
+                  <Select type="select" value={statusValue} onChange={(value) => handleChangeSelectValue(value)} />
                 </span>
-
-                <span className="delete-btn-container" onClick={() => handleDeleteTask(data.id)}>
-                  <label>Delete</label>
-                  <DeleteIcon />
-                </span>
+                {task.id && (
+                  <span className="delete-btn-container" onClick={() => handleDeleteTask(task)}>
+                    <label>Delete</label>
+                    <DeleteIcon />
+                  </span>
+                )}
               </div>
-              <div className="pop-up-form-info-container">
-                <span>
-                  <label>Modified:</label>
-                  <span>15/04/2023</span>
-                </span>
-              </div>
+              {task.id && (
+                <div className="pop-up-form-info-container">
+                  <span>
+                    <label>Modified:</label>
+                    <span>{formatDate(task.updated_at || '')}</span>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
           <div className="pop-up-form-footer-container">
