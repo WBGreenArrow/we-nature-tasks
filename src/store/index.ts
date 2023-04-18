@@ -1,8 +1,7 @@
 import { create } from 'zustand'
-import { Status } from '../constants'
 import { getCurrentDate, orderingId } from '../utils'
-
 import { getTaskListsFromLocalStorage } from '../utils/localStorageUtils'
+import { Status } from '../constants'
 
 export interface ITask {
   id?: number

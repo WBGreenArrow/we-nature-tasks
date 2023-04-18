@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
 import { Select } from '../Select'
+import { ITask, useStore } from '../../store'
+import { StatusList } from '../../constants'
+import { formatDate } from '../../utils'
+import { saveTaskListsToLocalStorage } from '../../utils/localStorageUtils'
 
 import { Modal, Box } from '@mui/material'
 import { Delete as DeleteIcon, Clear as CloseIcon } from '@mui/icons-material/'
 
 import './styles.scss'
-import { ITask, useStore } from '../../store'
-import { formatDate } from '../../utils'
 
 type PopUpTaskProps = {
   handleOpen: (statePopUp: boolean) => void
   task: ITask
-}
-
-enum StatusList {
-  'pending' = 'pendingTasks',
-  'in progress' = 'inProgressTasks',
-  'done' = 'doneTasks',
 }
 
 export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
@@ -24,7 +20,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
   const [descValue, setDescValue] = useState<string>(task.desc)
   const [statusValue, setStatusValue] = useState<string>(task.status)
 
-  const { actions } = useStore()
+  const { state, actions } = useStore()
 
   const handleClose = (event: React.MouseEvent, reason: string = '') => {
     if (reason && reason === 'backdropClick' && 'escapeKeyDown') return
@@ -51,6 +47,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
       actions.createTask(currenTask)
     }
     handleOpen(false)
+    saveTaskListsToLocalStorage(state)
   }
 
   const handleChangeTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {

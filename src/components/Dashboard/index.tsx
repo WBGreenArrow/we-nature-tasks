@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Outlet as RouterComponent, useNavigate } from 'react-router-dom'
 import { SideBar } from '../SideBar'
-import './styles.scss'
-import { Footer } from '../Footer'
 import { Header } from '../Header'
+import { Footer } from '../Footer'
+
+import './styles.scss'
 
 export const DashBoard = () => {
   const [currentRouter, setCurrentRouter] = useState<string>('tasks')

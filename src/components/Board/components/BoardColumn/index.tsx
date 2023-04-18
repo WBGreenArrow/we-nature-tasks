@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
-import { Grid } from '@mui/material'
 import { Card } from '../Card'
-import './styles.scss'
 import { ITask } from '../../../../store'
+
+import { Grid } from '@mui/material'
+
+import './styles.scss'
 
 type BoardColumnProps = {
   textHeader: string

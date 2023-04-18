@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import './styles.scss'
-import { PopUpTask } from '../../../PopUpTask'
 import { ITask } from '../../../../store'
 import { formatDate } from '../../../../utils'
+import { PopUpTask } from '../../../PopUpTask'
+
+import './styles.scss'
 
 type CardProp = {
   task: ITask

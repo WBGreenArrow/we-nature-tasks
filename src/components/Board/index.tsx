@@ -1,7 +1,8 @@
 import React from 'react'
-import { BoardColumn } from './components/BoardColumn'
-import { Grid } from '@mui/material'
 import { ITask } from '../../store'
+import { BoardColumn } from './components/BoardColumn'
+
+import { Grid } from '@mui/material'
 
 import './styles.scss'
 

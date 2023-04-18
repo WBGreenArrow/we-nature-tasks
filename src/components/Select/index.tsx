@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import FilterListIcon from '@mui/icons-material/FilterList'
-import './styles.scss'
 import { Status } from '../../constants'
+
+import FilterListIcon from '@mui/icons-material/FilterList'
+
+import './styles.scss'
 
 type SelectProp = {
   type: 'filter' | 'select'
