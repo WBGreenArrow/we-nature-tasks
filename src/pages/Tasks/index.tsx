@@ -9,6 +9,7 @@ import { PopUpTask } from '../../components/PopUpTask'
 import { Search as SearchIcon, Add as AddIcon } from '@mui/icons-material'
 
 import './styles.scss'
+import { saveTaskListsToLocalStorage } from '../../utils/localStorageUtils'
 
 export const Tasks = () => {
   const [filterValue, setfilterValue] = useState<string>('')
@@ -22,6 +23,10 @@ export const Tasks = () => {
   const filterRef = useRef<string>('')
 
   const { state } = useStore()
+
+  useEffect(() => {
+    saveTaskListsToLocalStorage(state)
+  }, [state])
 
   useEffect(() => {
     setFilter()
