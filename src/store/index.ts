@@ -65,13 +65,14 @@ export const useStore = create<IState & IAction>()((set) => ({
     },
     taskRemove: (taskToRemove) => {
       set((state) => {
-        let updatedTasks = state.state[taskToRemove.status_list].filter((task) => task.id !== taskToRemove.id)
+        const { id, status_list } = taskToRemove
+        let updatedTasks = state.state[status_list].filter((task) => task.id !== id)
 
         return {
           ...state,
           state: {
             ...state.state,
-            [taskToRemove.status_list]: updatedTasks,
+            [status_list]: updatedTasks,
           },
         }
       })
