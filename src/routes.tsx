@@ -14,6 +14,7 @@ const RoutesProvider = () => {
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
+      <Route path="*" element={<DashBoard />} />
     </Routes>
   )
 }
