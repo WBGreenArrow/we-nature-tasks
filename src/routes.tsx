@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { DashBoard } from './components/DashBboard'
+import { DashBoard } from './components/DashBoard'
 import { Tasks } from './pages/Tasks'
 import { Teams } from './pages/Teams'
 import { Reports } from './pages/Reports'
