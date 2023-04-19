@@ -13,9 +13,10 @@
 
   background-color: globalStyles.$green-color;
 
-  & > img {
-    width: 154px;
-    height: 31px;
+  & > svg {
+    margin-left: -10px;
+    width: 200px;
+    height: 100px;
   }
 
   .hidden-side-bar-btn {

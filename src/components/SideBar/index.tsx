@@ -7,6 +7,8 @@ import {
   Close as CloseIcon,
 } from '@mui/icons-material'
 
+import { ReactComponent as WeNatureTaskLogo } from '../../assets/we-nature-task-logo.svg'
+
 import './styles.scss'
 
 type SideBarProps = {
@@ -50,7 +52,7 @@ export const SideBar = ({ changeRouter }: SideBarProps) => {
       <span className="hidden-side-bar-btn">
         <CloseIcon onClick={handleCloseSideBarMenu} />
       </span>
-      <img src="https://www.lognature.com.br/wp-content/uploads/2022/04/logo-log.png" alt="logo of logonature" />
+      <WeNatureTaskLogo />
       <ul className="side-bar-content">
         <li id="item-1" className="side-bar-item active" router-name="tasks" onClick={handleChangeActiveTab}>
           {<TaskIcon />}
