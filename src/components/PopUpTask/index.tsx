@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { Select } from '../Select'
+import toast from 'react-hot-toast'
 import { ITask, useStore } from '../../store'
 import { StatusList } from '../../constants'
 import { formatDate } from '../../utils'
+import { Select } from '../Select'
+import { Loading } from '../Loading'
 
 import { Modal, Box } from '@mui/material'
 import { Delete as DeleteIcon, Clear as CloseIcon } from '@mui/icons-material/'
@@ -18,6 +20,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
   const [titleValue, setTitleValue] = useState<string>(task.title)
   const [descValue, setDescValue] = useState<string>(task.desc)
   const [statusValue, setStatusValue] = useState<string>(task.status)
+  const [isSaving, setIsSaving] = useState<'save' | 'delete' | ''>('')
 
   const { actions } = useStore()
 
@@ -25,27 +28,37 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
     if (reason && reason === 'backdropClick' && 'escapeKeyDown') return
 
     handleOpen(false)
-    handleCleanValues()
   }
 
-  const handleDeleteTask = (task: ITask) => {
+  const handleDeleteTask = async (task: ITask) => {
+    if (isSaving === 'delete') return
+
+    setIsSaving('delete')
+    await notify('task deleted successfully!')
     actions.taskRemove(task)
+
     handleOpen(false)
+    setIsSaving('')
   }
 
-  const handleSaveTask = () => {
+  const handleSaveTask = async () => {
+    if (isSaving === 'save') return
     const currenTask = {
       ...task,
       title: titleValue,
       desc: descValue,
       status: statusValue,
     }
+    setIsSaving('save')
     if (currenTask.id) {
       actions.taskUpdate(currenTask)
+      await notify('task updated successfully!')
     } else {
       actions.createTask(currenTask)
+      await notify('task created successfully!')
     }
     handleOpen(false)
+    setIsSaving('')
   }
 
   const handleChangeTitleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +78,13 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
     setDescValue(() => value)
   }
 
-  const handleCleanValues = () => {
-    setTitleValue(() => '')
-    setDescValue(() => '')
+  const notify = async (message: string) => {
+    await new Promise<void>((resolve) =>
+      setTimeout(() => {
+        toast.success(message)
+        resolve(void 0)
+      }, 1000),
+    )
   }
 
   return (
@@ -100,8 +117,14 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
                 </span>
                 {task.id && (
                   <span className="delete-btn-container" onClick={() => handleDeleteTask(task)}>
-                    <label>Delete</label>
-                    <DeleteIcon />
+                    {isSaving == 'delete' ? (
+                      <Loading />
+                    ) : (
+                      <>
+                        <label>Delete</label>
+                        <DeleteIcon />
+                      </>
+                    )}
                   </span>
                 )}
               </div>
@@ -117,7 +140,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
           </div>
           <div className="pop-up-form-footer-container">
             <span className="save-btn-container" onClick={handleSaveTask}>
-              Save
+              {isSaving === 'save' ? <Loading /> : 'Save'}
             </span>
           </div>
         </Box>
