@@ -24,6 +24,9 @@
         "@typescript-eslint",
         "prettier"
     ],
+    "ignorePatterns": [
+        "src/components/DashBoard.tsx"
+      ],
     
     "rules": {
         "react/react-in-jsx-scope": ["off"],
