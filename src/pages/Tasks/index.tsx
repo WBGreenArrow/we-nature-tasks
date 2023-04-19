@@ -89,11 +89,7 @@ export const Tasks = () => {
           <Select type="filter" onChange={(value) => setfilterValue(() => value)} />
           <span>
             <SearchIcon />
-            <input
-              type="text"
-              placeholder="Search by cards, subjects or guardians..."
-              onChange={handleOnChangeFilter}
-            />
+            <input type="text" placeholder="Search by title, description or date..." onChange={handleOnChangeFilter} />
           </span>
         </div>
         <div className="btn-add-task-container">

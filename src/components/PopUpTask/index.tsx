@@ -93,7 +93,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
         <Box className="pop-up-container-main">
           <div className="pop-up-header-container">
             <h2>Create Task</h2>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+            <p>Create your task with title description and status :)</p>
             <span onClick={handleClose}>
               <CloseIcon />
             </span>
