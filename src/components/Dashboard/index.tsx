@@ -3,6 +3,7 @@ import { Outlet as RouterComponent, useNavigate } from 'react-router-dom'
 import { SideBar } from '../SideBar'
 import { Header } from '../Header'
 import { Footer } from '../Footer'
+import { Dehaze as MenuIcon } from '@mui/icons-material'
 
 import './styles.scss'
 
@@ -14,6 +15,11 @@ export const DashBoard = () => {
     setCurrentRouter(() => routerName)
   }
 
+  const handleSideBarMenu = () => {
+    const sideBarElement = document.querySelector('.side-bar-container')
+    sideBarElement?.classList.add('show-side-bar-menu')
+  }
+
   useEffect(() => {
     navigate(`/${currentRouter}`)
   }, [currentRouter])
@@ -22,6 +28,9 @@ export const DashBoard = () => {
     <div className="container">
       <SideBar changeRouter={handleChangeRouter} />
       <main className="main-container">
+        <span className="menu-hamburger">
+          <MenuIcon onClick={handleSideBarMenu} />
+        </span>
         <Header textHeader={currentRouter} />
         <RouterComponent />
         <Footer />

@@ -1,3 +1,6 @@
+@use '/src/base/globalStyles';
+@use '/src/base/mixins';
+
 .board-container {
   width: 100%;
 
@@ -5,6 +8,24 @@
     & > div:nth-child(2) {
       margin-right: 48px;
       margin-left: 48px;
+    }
+
+    @media screen and (max-width: 1191px) {
+      & > div:nth-child(2) {
+        margin: 0;
+      }
+    }
+
+    @media screen and (max-width: 579px) {
+      & > div:nth-child(3) {
+        width: 100%;
+      }
+    }
+
+    @include mixins.mobile {
+      & > div {
+        max-width: none;
+      }
     }
   }
 }

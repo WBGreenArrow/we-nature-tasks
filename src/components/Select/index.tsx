@@ -48,10 +48,10 @@ export const Select = ({ type, value = '', onChange }: SelectProp) => {
       setSelectValue(() => '')
       onChange('')
       liElement.classList.remove('item-active')
-      return
+    } else {
+      setSelectValue(() => value as Status)
+      liElement.classList.add('item-active')
     }
-    setSelectValue(() => value as Status)
-    liElement.classList.add('item-active')
 
     if (prevItemSelectedRef.current) {
       prevItemSelectedRef.current.classList.remove('item-active')
@@ -78,7 +78,12 @@ export const Select = ({ type, value = '', onChange }: SelectProp) => {
           selectValue
         ) : (
           <>
-            <FilterListIcon />
+            <FilterListIcon
+              onClick={(event) => {
+                event.stopPropagation()
+                handleOpenSelect()
+              }}
+            />
             filters
           </>
         )}

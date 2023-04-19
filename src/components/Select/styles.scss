@@ -1,3 +1,6 @@
+@use '/src/base/globalStyles';
+@use '/src/base/mixins';
+
 .filter-select-container {
   position: relative;
   & > span {
@@ -8,8 +11,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    background-color: #0e9f42;
-    color: #fff;
+    background-color: globalStyles.$green-color;
+    color: globalStyles.$white-color;
     text-transform: capitalize;
     transition: all 200ms ease-in-out;
 
@@ -22,13 +25,19 @@
     &:hover {
       opacity: 0.8;
     }
+
+    @include mixins.tablet {
+      & {
+        width: 100px;
+      }
+    }
   }
 
   .filter-select-items-container {
     z-index: 1;
     width: 135px;
     height: 100px;
-    background-color: #fff;
+    background-color: globalStyles.$white-color;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: absolute;
     border-radius: 5px;
@@ -49,8 +58,14 @@
     }
 
     & > li:hover {
-      background-color: #0e9f42;
-      color: #fff;
+      background-color: globalStyles.$green-color;
+      color: globalStyles.$white-color;
+    }
+
+    @include mixins.tablet {
+      & {
+        width: 100px;
+      }
     }
   }
 
@@ -59,7 +74,7 @@
   }
 
   .item-active {
-    background-color: #0e9f42;
-    color: #fff;
+    background-color: globalStyles.$green-color;
+    color: globalStyles.$white-color;
   }
 }

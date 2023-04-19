@@ -32,7 +32,7 @@ export const BoardColumn = ({ textHeader, taskCount, taskList, filterValue }: Bo
       className="board-column-container"
       style={filterValue !== '' ? { margin: 0 } : {}}
       item
-      xs
+      md
     >
       <div className="board-column-header">
         <span>
@@ -43,9 +43,11 @@ export const BoardColumn = ({ textHeader, taskCount, taskList, filterValue }: Bo
         </span>
       </div>
       <div className="board-column-content">
-        {taskList?.map((taskData) => {
-          return <Card key={taskData.id} task={taskData} />
-        })}
+        {taskList.length ? (
+          taskList?.map((taskData) => <Card key={taskData.id} task={taskData} />)
+        ) : (
+          <span>No Task</span>
+        )}
       </div>
     </Grid>
   )

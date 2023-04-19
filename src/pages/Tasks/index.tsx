@@ -85,15 +85,23 @@ export const Tasks = () => {
   return (
     <div className="tasks-container">
       <div className="tasks-search-container">
-        <Select type="filter" onChange={(value) => setfilterValue(() => value)} />
-        <span>
-          <SearchIcon />
-          <input type="text" placeholder="Search by cards, subjects or guardians..." onChange={handleOnChangeFilter} />
-        </span>
-        <span onClick={() => handleOpenPopUpTask(true)}>
-          <label> new task</label>
-          <AddIcon />
-        </span>
+        <div className="tasks-filter-container">
+          <Select type="filter" onChange={(value) => setfilterValue(() => value)} />
+          <span>
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="Search by cards, subjects or guardians..."
+              onChange={handleOnChangeFilter}
+            />
+          </span>
+        </div>
+        <div className="btn-add-task-container">
+          <span className="btn-add-task" onClick={() => handleOpenPopUpTask(true)}>
+            <label> new task</label>
+            <AddIcon />
+          </span>
+        </div>
       </div>
       <Board
         pendingTasks={filterValue !== '' ? filterListByStatus : pending}

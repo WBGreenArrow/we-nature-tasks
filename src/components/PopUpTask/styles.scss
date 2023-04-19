@@ -1,4 +1,7 @@
-.pop-up-container {
+@use '../../base/globalStyles';
+@use '../../base/mixins.scss';
+
+.pop-up-container-main {
   width: 100%;
   max-width: 1200px;
   height: 100%;
@@ -10,7 +13,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: globalStyles.$white-color;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 
@@ -22,20 +25,25 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background-color: rgb(190, 184, 184);
+      background-color: globalStyles.$grey-color;
       position: absolute;
       cursor: pointer;
 
       top: -45px;
-      right: -4%;
+      left: 101%;
 
       display: flex;
       align-items: center;
       justify-content: center;
     }
+    @include mixins.tablet {
+      & {
+        padding-bottom: 0;
+      }
+    }
   }
 
-  .pop-up-form-container {
+  .pop-up-form-content {
     display: flex;
 
     .pop-up-form-content-fields {
@@ -44,10 +52,16 @@
       & > span:last-child {
         padding-top: 48px;
       }
+
+      @include mixins.tablet {
+        & > span:last-child {
+          padding-top: 24px;
+        }
+      }
     }
     .pop-up-form-text {
       width: 100%;
-      background-color: #fff;
+      background-color: globalStyles.$white-color;
 
       display: flex;
       justify-content: center;
@@ -57,6 +71,10 @@
         font-size: 20px;
         font-weight: 500;
         padding-bottom: 8px;
+
+        @include mixins.tablet {
+          font-size: 16px;
+        }
       }
 
       & > input,
@@ -68,7 +86,7 @@
         padding-left: 16px;
         box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
         font-size: 16px;
-        color: rgba(117, 105, 102, 1);
+        color: globalStyles.$grey2-color;
       }
 
       & > textarea {
@@ -111,8 +129,8 @@
           align-items: center;
           justify-content: center;
           border-radius: 5px;
-          background-color: #fd0e04;
-          color: #fff;
+          background-color: globalStyles.$red-color;
+          color: globalStyles.$white-color;
           transition: all 200ms ease-in-out;
 
           cursor: pointer;
@@ -127,6 +145,11 @@
 
           &:hover {
             opacity: 0.8;
+          }
+          @include mixins.tablet {
+            & {
+              width: 100px;
+            }
           }
         }
       }
@@ -144,13 +167,55 @@
           & > label {
             margin-right: 8px;
             font-size: 18px;
-            color: rgba(117, 105, 102, 1);
+            color: globalStyles.$grey2-color;
+
+            @include mixins.tablet {
+              & {
+                font-size: 14px;
+              }
+            }
           }
 
           & > span {
             font-size: 18px;
             font-weight: 600;
-            color: rgba(117, 105, 102, 1);
+            color: globalStyles.$grey2-color;
+
+            @include mixins.tablet {
+              & {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+        @media screen and (max-width: 494px) {
+          & {
+            padding-top: 16px;
+          }
+        }
+      }
+
+      @include mixins.tablet {
+        & {
+          padding-top: 16px;
+          padding-left: 0;
+          flex-direction: row;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+      }
+    }
+    @include mixins.tablet {
+      & {
+        flex-direction: column;
+        .pop-up-form-text {
+          padding-top: 24px;
+          & > input {
+            font-size: 14px;
+          }
+          & > textarea {
+            height: 150px;
+            font-size: 14px;
           }
         }
       }
@@ -173,14 +238,26 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    background-color: #0e9f42;
-    color: #fff;
+    background-color: globalStyles.$green-color;
+    color: globalStyles.$white-color;
     transition: all 200ms ease-in-out;
 
     cursor: pointer;
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  @include mixins.tablet {
+    & {
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 494px) {
+    & {
+      padding-top: 16px;
     }
   }
 }

@@ -1,3 +1,5 @@
+@use '../../base/globalStyles';
+
 .header-container {
   display: flex;
   align-items: center;
@@ -7,13 +9,13 @@
 
   & > h1 {
     text-transform: capitalize;
-    color: #403937;
+    color: globalStyles.$grey5-color;
   }
 
   & > svg {
     width: 56px;
     height: 56px;
-    color: #403937;
+    color: globalStyles.$grey5-color;
     opacity: 0.25;
 
     cursor: pointer;

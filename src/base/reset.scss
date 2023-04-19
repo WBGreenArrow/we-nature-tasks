@@ -1,0 +1,13 @@
+@use './globalStyles';
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: globalStyles.$white1-color;
+}

@@ -1,3 +1,6 @@
+@use '../../base/globalStyles';
+@use '../../base/mixins.scss';
+
 .side-bar-container {
   height: 100%;
   width: 100%;
@@ -6,11 +9,17 @@
   z-index: 2;
   position: fixed;
 
-  background-color: #0e9f42;
+  transition: ease-in 0.5s;
+
+  background-color: globalStyles.$green-color;
 
   & > img {
     width: 154px;
     height: 31px;
+  }
+
+  .hidden-side-bar-btn {
+    display: none;
   }
 
   .side-bar-content {
@@ -23,7 +32,7 @@
       padding: 18px 0;
 
       opacity: 0.5;
-      transition: all 200ms ease-in-out;
+      transition: all 200ms ease;
 
       cursor: pointer;
 
@@ -31,11 +40,11 @@
         padding-left: 16px;
         font-size: 16px;
         font-weight: 700;
-        color: #fff;
+        color: globalStyles.$white-color;
       }
 
       & > svg {
-        color: #fff;
+        color: globalStyles.$white-color;
       }
     }
 
@@ -55,4 +64,25 @@
       opacity: 1;
     }
   }
+
+  @include mixins.tablet {
+    left: -100%;
+
+    .hidden-side-bar-btn {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 24px;
+      width: 100%;
+      & > svg {
+        width: 32px;
+        height: 32px;
+
+        color: globalStyles.$white-color;
+      }
+    }
+  }
+}
+
+.show-side-bar-menu {
+  left: 0;
 }

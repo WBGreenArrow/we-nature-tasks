@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Select } from '../Select'
 import { ITask, useStore } from '../../store'
 import { StatusList } from '../../constants'
 import { formatDate } from '../../utils'
-import { saveTaskListsToLocalStorage } from '../../utils/localStorageUtils'
 
 import { Modal, Box } from '@mui/material'
 import { Delete as DeleteIcon, Clear as CloseIcon } from '@mui/icons-material/'
@@ -74,7 +73,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
   return (
     <>
       <Modal open={true} onClose={handleClose} sx={{ margin: '32px' }}>
-        <Box className="pop-up-container">
+        <Box className="pop-up-container-main">
           <div className="pop-up-header-container">
             <h2>Create Task</h2>
             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
@@ -82,7 +81,7 @@ export const PopUpTask = ({ handleOpen, task }: PopUpTaskProps) => {
               <CloseIcon />
             </span>
           </div>
-          <div className="pop-up-form-container">
+          <div className="pop-up-form-content">
             <div className="pop-up-form-content-fields">
               <span className="pop-up-form-text">
                 <label>Title:</label>

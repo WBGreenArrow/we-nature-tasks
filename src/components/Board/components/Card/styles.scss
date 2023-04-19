@@ -1,3 +1,6 @@
+@use '/src/base/globalStyles';
+@use '/src/base/mixins';
+
 .card-container {
   width: 100%;
   max-width: 305px;
@@ -8,12 +11,19 @@
   cursor: pointer;
 
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  background-color: #fff;
+  background-color: globalStyles.$white-color;
 
   .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    & > h5 {
+      width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     & > span {
       font-size: 14px;
@@ -21,9 +31,13 @@
   }
 
   .card-body {
-    width: 100%;
+    word-wrap: break-word;
     font-size: 14px;
     padding-top: 10px;
-    color: rgba(117, 105, 102, 1);
+    color: globalStyles.$grey2-color;
+  }
+
+  @include mixins.mobile {
+    max-width: none;
   }
 }

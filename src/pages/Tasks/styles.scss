@@ -1,3 +1,6 @@
+@use '/src/base/globalStyles';
+@use '/src/base/mixins';
+
 .tasks-container {
   display: flex;
   align-items: center;
@@ -6,48 +9,76 @@
 
   .tasks-search-container {
     width: 100%;
-    padding-bottom: 32px;
     display: flex;
 
-    & > span {
+    .tasks-filter-container {
       width: 100%;
-      height: 48px;
-      padding: 16px;
-      margin-left: 16px;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding-bottom: 32px;
 
       display: flex;
       align-items: center;
+      justify-content: center;
 
-      & > svg {
-        color: rgba(124, 124, 138, 1);
-      }
+      & > span {
+        width: 100%;
+        height: 48px;
+        padding: 16px;
+        margin-left: 16px;
+        border-radius: 8px;
+        background-color: globalStyles.$white-color;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-      & > input {
-        width: calc(100% - 34px);
-        margin-left: 10px;
-        font-size: 16px;
-        border: none;
-        outline: none;
-      }
+        display: flex;
+        align-items: center;
 
-      & > input::placeholder {
-        color: rgba(124, 124, 138, 1);
+        & > svg {
+          color: globalStyles.$grey6-color;
+        }
+
+        & > input {
+          width: calc(100% - 34px);
+          margin-left: 10px;
+          font-size: 16px;
+          border: none;
+          outline: none;
+
+          @include mixins.tablet {
+            & {
+              font-size: 14px;
+            }
+          }
+        }
+
+        & > input::placeholder {
+          color: globalStyles.$grey6-color;
+        }
       }
     }
 
-    & > span:last-child {
-      width: 250px;
+    @include mixins.tablet {
+      & {
+        flex-direction: column;
+        justify-content: right;
+      }
+    }
+  }
+
+  .btn-add-task-container {
+    display: flex;
+
+    .btn-add-task {
+      max-width: 250px;
+      min-width: 120px;
+      width: 100%;
       height: 48px;
+      margin-left: 16px;
 
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 5px;
-      background-color: #0e9f42;
-      color: #fff;
+      background-color: globalStyles.$green-color;
+      color: globalStyles.$white-color;
       text-transform: capitalize;
       transition: all 200ms ease-in-out;
 
@@ -59,11 +90,22 @@
 
       & > svg {
         margin-left: 8px;
-        color: #fff;
+        color: globalStyles.$white-color;
       }
 
       &:hover {
         opacity: 0.8;
+      }
+
+      @include mixins.tablet {
+        & {
+          max-width: 120px;
+        }
+      }
+    }
+    @include mixins.tablet {
+      & {
+        justify-content: right;
       }
     }
   }

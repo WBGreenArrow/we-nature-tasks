@@ -1,10 +1,11 @@
+@use '/src/base/globalStyles';
+@use '/src/base/mixins';
+
 .container {
   max-width: 1350px;
   height: 100vh;
   margin: 0 auto;
-
-  display: flex;
-  background-color: #0e9f42;
+  background-color: globalStyles.$green-color;
 
   .main-container {
     width: calc(100% - 250px);
@@ -14,9 +15,27 @@
     padding: 32px;
     padding-top: 48px;
 
-    background-color: #fbfaff;
+    background-color: globalStyles.$white1-color;
 
     display: flex;
     flex-direction: column;
+
+    .menu-hamburger {
+      display: none;
+
+      & > svg {
+        width: 32px;
+        height: 32px;
+      }
+
+      @include mixins.tablet {
+        display: inherit;
+      }
+    }
+
+    @include mixins.tablet {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 }
