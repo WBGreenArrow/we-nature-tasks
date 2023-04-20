@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ITask } from '../../../../store'
-import { formatDate } from '../../../../utils'
+import { formatDate, formatTextOverflow } from '../../../../utils'
 import { PopUpTask } from '../../../PopUpTask'
 
 import './styles.scss'
@@ -14,15 +14,6 @@ export const Card = ({ task }: CardProp) => {
 
   const handleOpenPopUpTask = (statePopUp: boolean) => {
     setIsOpenPopUpTask(() => statePopUp)
-  }
-
-  const formatTextOverflow = (text: string) => {
-    let maxCaracter = 160
-
-    if (text.length > maxCaracter) {
-      return `${text.slice(0, maxCaracter)}...`
-    }
-    return text
   }
 
   return (
