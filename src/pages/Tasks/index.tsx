@@ -35,14 +35,6 @@ export const Tasks = () => {
   const handleOnChangeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
 
-    if (value !== '' && !pending.length && !inProgess.length && !done.length) {
-      return
-    }
-
-    if (value !== '' && filterValue !== '' && !filterListByStatus.length) {
-      return
-    }
-
     if (filterValue === '') {
       setPending(() => filterByValue(value, state.pendingTasks))
       setInProgess(() => filterByValue(value, state.inProgressTasks))
