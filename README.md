@@ -84,7 +84,15 @@ Clone o repositório
 # Clone o repositório
 git clone https://github.com/WBGreenArrow/we-nature-tasks.git
 ```
-Abra o terminal na raiz do projeto e execute o comando abaixo para instalar as dependências.
+Navegue até a pasta do projeto clonado e execute os comandos abaixo
+
+```bash
+# Entra na pasta do projeto 
+cd we-nature-tasks
+
+# Instala as dependências
+yarn install
+```
 
 ```bash
 # Instalar as dependências
