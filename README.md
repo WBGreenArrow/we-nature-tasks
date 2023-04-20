@@ -90,15 +90,10 @@ Navegue até a pasta do projeto clonado e execute os comandos abaixo
 # Entra na pasta do projeto 
 cd we-nature-tasks
 
-# Instala as dependências
-yarn install
-```
-
-```bash
 # Instalar as dependências
 yarn install
-
 ```
+
 Após concluir a instalação das dependências, ainda no terminal na pasta raiz do projeto, execute o comando abaixo.
 
 ```bash
