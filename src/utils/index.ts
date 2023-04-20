@@ -1,11 +1,11 @@
 import { ITask } from '../store'
 
-export const orderingId = (array: Array<any>) => {
+export const orderingId = (array: Array<any>): Array<any> => {
   const newArrayOrdered = array.map((item, key) => ({ ...item, id: key + 1 }))
   return newArrayOrdered
 }
 
-export const filterByValue = (value: string, taskList: ITask[]) => {
+export const filterByValue = (value: string, taskList: ITask[]): ITask[] => {
   const valueFormated = value.toLowerCase()
   const taskListFiltered = taskList.filter((item) => {
     item.updated_at = formatDate(item.updated_at || '')
@@ -20,13 +20,21 @@ export const filterByValue = (value: string, taskList: ITask[]) => {
 
   return taskListFiltered
 }
+export const formatTextOverflow = (text: string): string => {
+  let maxCaracter = 160
 
-export const getCurrentDate = () => {
+  if (text.length > maxCaracter) {
+    return `${text.slice(0, maxCaracter)}...`
+  }
+  return text
+}
+
+export const getCurrentDate = (): string => {
   const date = new Date()
   return date.toISOString()
 }
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: string): string => {
   const newDate = new Date(date)
   const formattedDate = newDate.toLocaleString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })
   return formattedDate
