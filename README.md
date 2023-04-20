@@ -5,7 +5,7 @@
   
 <td align="center" width="9999">
    
-<img src="./we-nature-task-logo.png" style="display: block; margin: auto; max-width: 500px" alt="manipulae-music_logo">
+<img src="./we-nature-task-logo.png" style="display: block; margin: auto; max-width: 350px" alt="WeNature Task logo">
 
 <br>
 
